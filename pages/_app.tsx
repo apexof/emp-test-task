@@ -6,6 +6,7 @@ import { argentWallet, trustWallet, ledgerWallet } from '@rainbow-me/rainbowkit/
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, optimism, arbitrum, polygonMumbai } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
+import React from 'react';
 
 const { chains, publicClient, webSocketPublicClient } = configureChains([mainnet, polygon, optimism, arbitrum, polygonMumbai], [publicProvider()]);
 
