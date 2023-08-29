@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
@@ -20,12 +24,24 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react",
+    "jsx": "preserve",
     "downlevelIteration": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["jest"],
-    "typeRoots": ["./node_modules/@types"]
+    "types": [
+      "jest"
+    ],
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "incremental": true
   },
-  "exclude": ["node_modules"],
-  "include": ["./src/**/*.ts", "./src/**/*.tsx", "node_modules/eslint-plugin-react/lib/types.d.ts", "node_modules/eslint-plugin-react/lib/types.d.ts"]
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "node_modules/eslint-plugin-react/lib/types.d.ts",
+    "node_modules/eslint-plugin-react/lib/types.d.ts"
+  ]
 }
