@@ -8,7 +8,7 @@ export default function Layout({ children }) {
       <Head>
         <meta name="description" content="EMP" />
       </Head>
-      <header>
+      <header style={{ padding: 10 }}>
         <ConnectButton />
       </header>
       <main>{children}</main>
