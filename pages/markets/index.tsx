@@ -1,7 +1,7 @@
 import React from 'react';
 import { NextPage } from 'next';
 import { useGetMarkets } from '../../hooks/useMarkets';
-import { Table } from 'antd';
+import { Alert, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { Market } from '../../types/market';
 import { shortenHash } from '../../utils/shortenHash';
@@ -60,7 +60,7 @@ const MarketsPage: NextPage = () => {
       ) : markets && markets?.length > 0 ? (
         <Table dataSource={markets} columns={columns} />
       ) : error ? (
-        <div style={{ color: 'red' }}>Error: {error?.message}</div>
+        <Alert message={error?.message} type="error" />
       ) : null}
     </Layout>
   );
