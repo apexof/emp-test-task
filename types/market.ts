@@ -7,3 +7,10 @@ export interface Market {
   winToken: null;
   lastEventDate: number;
 }
+
+export interface CreateMarketForm {
+  cutoffDate: bigint;
+  decisionDate: bigint;
+  decisionProvider: `0x${string}`;
+  description: string;
+}

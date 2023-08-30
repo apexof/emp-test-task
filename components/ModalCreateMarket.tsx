@@ -1,17 +1,14 @@
 import { Button, Modal } from 'antd';
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import React, { FC } from 'react';
 import { useContractWrite, useWaitForTransaction } from 'wagmi';
 import { DATE_FORMAT } from '../constants';
 import { predictionMarketFactory } from '../constants/abi/predictionMarketFactory';
 import { shortenHash } from '../utils/shortenHash';
 import Link from 'next/link';
+import { CreateMarketForm } from '../types/market';
 
-interface Props {
-  cutoffDate: Dayjs;
-  decisionDate: Dayjs;
-  decisionProvider: `0x${string}`;
-  description: string;
+interface Props extends CreateMarketForm {
   isModalOpen: boolean;
   setIsModalOpen: (isOpen: boolean) => void;
 }
@@ -29,7 +26,7 @@ export const ModalCreateMarket: FC<Props> = props => {
     address: predictionMarketFactory.address,
     abi: predictionMarketFactory.abi,
     functionName: 'createMarket',
-    args: [BigInt(cutoffDate.valueOf()), BigInt(decisionDate.valueOf()), decisionProvider, description],
+    args: [cutoffDate, decisionDate, decisionProvider, description],
   });
 
   const { data: tx, error: txError, isLoading: txLoading } = useWaitForTransaction({ hash: data?.hash });
@@ -63,8 +60,8 @@ export const ModalCreateMarket: FC<Props> = props => {
         </div>
       ) : (
         <div>
-          <div>Cutoff Date: {cutoffDate.format(DATE_FORMAT)}</div>
-          <div>Decision Date: {decisionDate.format(DATE_FORMAT)}</div>
+          <div>Cutoff Date: {dayjs(Number(cutoffDate)).format(DATE_FORMAT)}</div>
+          <div>Decision Date: {dayjs(Number(decisionDate)).format(DATE_FORMAT)}</div>
           <div>Description: {description}</div>
           <div>Decision Provider: {shortenHash(decisionProvider)}</div>
         </div>

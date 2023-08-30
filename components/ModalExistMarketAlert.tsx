@@ -12,7 +12,7 @@ export const ModalExistMarketAlert: FC<Props> = props => {
   const { isModalOpen, marketAddress, setIsModalOpen } = props;
 
   return (
-    <Modal title="Market already exists" open={isModalOpen} onOk={() => setIsModalOpen(false)} onCancel={() => setIsModalOpen(false)}>
+    <Modal title="Market already exists!" open={isModalOpen} onOk={() => setIsModalOpen(false)} onCancel={() => setIsModalOpen(false)}>
       <div>Market already exists!</div>
       <Link target="_blank" href={`/markets/${marketAddress}`}>
         Open Market Page
