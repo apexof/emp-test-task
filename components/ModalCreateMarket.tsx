@@ -5,6 +5,7 @@ import { useContractWrite, useWaitForTransaction } from 'wagmi';
 import { DATE_FORMAT } from '../constants';
 import { predictionMarketFactory } from '../constants/abi/predictionMarketFactory';
 import { shortenHash } from '../utils/shortenHash';
+import Link from 'next/link';
 
 interface Props {
   cutoffDate: Dayjs;
@@ -54,7 +55,12 @@ export const ModalCreateMarket: FC<Props> = props => {
       ) : error ? (
         <div style={{ color: 'red' }}>{error.message}</div>
       ) : isSuccess && tx ? (
-        <div>Market created successfully!</div>
+        <div>
+          <div>Market {shortenHash(tx.logs[0].address)} created successfully!</div>
+          <Link target="_blank" href={`/markets/${tx.logs[0].address}`}>
+            Open Market Page
+          </Link>
+        </div>
       ) : (
         <div>
           <div>Cutoff Date: {cutoffDate.format(DATE_FORMAT)}</div>
