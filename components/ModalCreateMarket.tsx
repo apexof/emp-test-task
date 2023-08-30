@@ -1,7 +1,7 @@
-import { Button, Modal } from 'antd';
+import { Alert, Button, Modal } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { FC } from 'react';
-import { useContractWrite, useWaitForTransaction } from 'wagmi';
+import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi';
 import { DATE_FORMAT } from '../constants';
 import { predictionMarketFactory } from '../constants/abi/predictionMarketFactory';
 import { shortenHash } from '../utils/shortenHash';
@@ -26,13 +26,12 @@ export const ModalCreateMarket: FC<Props> = props => {
     address: predictionMarketFactory.address,
     abi: predictionMarketFactory.abi,
     functionName: 'createMarket',
-    args: [cutoffDate, decisionDate, decisionProvider, description],
+    args: [BigInt(cutoffDate.valueOf()), BigInt(decisionDate.valueOf()), decisionProvider, description],
   });
 
   const { data: tx, error: txError, isLoading: txLoading } = useWaitForTransaction({ hash: data?.hash });
   const error = writeError || txError;
   const isLoading = writeLoading || txLoading;
-
   return (
     <Modal
       title="Create Market"
@@ -50,7 +49,7 @@ export const ModalCreateMarket: FC<Props> = props => {
       {isLoading ? (
         <>Loading...</>
       ) : error ? (
-        <div style={{ color: 'red' }}>{error.message}</div>
+        <Alert message={error?.message} type="error" />
       ) : isSuccess && tx ? (
         <div>
           <div>Market {shortenHash(tx.logs[0].address)} created successfully!</div>
@@ -60,8 +59,8 @@ export const ModalCreateMarket: FC<Props> = props => {
         </div>
       ) : (
         <div>
-          <div>Cutoff Date: {dayjs(Number(cutoffDate)).format(DATE_FORMAT)}</div>
-          <div>Decision Date: {dayjs(Number(decisionDate)).format(DATE_FORMAT)}</div>
+          <div>Cutoff Date: {cutoffDate.format(DATE_FORMAT)}</div>
+          <div>Decision Date: {decisionDate.format(DATE_FORMAT)}</div>
           <div>Description: {description}</div>
           <div>Decision Provider: {shortenHash(decisionProvider)}</div>
         </div>

@@ -1,3 +1,5 @@
+import { Dayjs } from 'dayjs';
+
 export interface Market {
   id: string;
   description: string;
@@ -9,8 +11,8 @@ export interface Market {
 }
 
 export interface CreateMarketForm {
-  cutoffDate: bigint;
-  decisionDate: bigint;
+  cutoffDate: Dayjs;
+  decisionDate: Dayjs;
   decisionProvider: `0x${string}`;
   description: string;
 }
