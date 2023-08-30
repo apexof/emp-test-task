@@ -3,19 +3,19 @@ import '@rainbow-me/rainbowkit/styles.css';
 import type { AppProps } from 'next/app';
 import { RainbowKitProvider, getDefaultWallets, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import { Chain, configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { mainnet, polygon, optimism, arbitrum, polygonMumbai as polygonMumbaiDefault } from 'wagmi/chains';
+import { polygonMumbai, mainnet } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import React from 'react';
 
-export const polygonMumbai = {
-  ...polygonMumbaiDefault,
+export const mumbai = {
+  ...polygonMumbai,
   rpcUrls: {
     public: { http: ['https://polygon-mumbai-bor.publicnode.com'] },
     default: { http: ['https://polygon-mumbai-bor.publicnode.com'] },
   },
 } as const satisfies Chain;
 
-const { chains, publicClient, webSocketPublicClient } = configureChains([mainnet, optimism, polygon, polygonMumbai], [publicProvider()]);
+const { chains, publicClient, webSocketPublicClient } = configureChains([mainnet, mumbai], [publicProvider()]);
 
 const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_ID as string;
 
