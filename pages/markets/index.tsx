@@ -5,9 +5,10 @@ import { Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { Market } from '../../types/market';
 import { shortenHash } from '../../utils/shortenHash';
-import moment from 'moment';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
+import dayjs from 'dayjs';
+import { DATE_FORMAT } from '../../constants';
 
 const columns: ColumnsType<Market> = [
   {
@@ -26,7 +27,9 @@ const columns: ColumnsType<Market> = [
     dataIndex: 'lastEventDate',
     key: 'lastEventDate',
     defaultSortOrder: 'descend',
-    render: value => moment(value).format('DD.MM.YYYY'),
+    render: (value: number) => {
+      return dayjs(value).format(DATE_FORMAT);
+    },
     sorter: (a, b) => a.lastEventDate - b.lastEventDate,
   },
   {
@@ -50,25 +53,15 @@ const columns: ColumnsType<Market> = [
 const MarketsPage: NextPage = () => {
   const { data: markets, error, isLoading } = useGetMarkets();
 
-  if (isLoading) {
-    return (
-      <Layout>
-        <div>Loading...</div>
-      </Layout>
-    );
-  }
-
-  if (markets) {
-    return (
-      <Layout>
-        <Table dataSource={markets} columns={columns} />;
-      </Layout>
-    );
-  }
-
   return (
     <Layout>
-      <div>Error: {error?.message || 'unknown error'}</div>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : markets && markets?.length > 0 ? (
+        <Table dataSource={markets} columns={columns} />
+      ) : error ? (
+        <div style={{ color: 'red' }}>Error: {error?.message}</div>
+      ) : null}
     </Layout>
   );
 };

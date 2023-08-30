@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
 import Layout from '../../components/Layout';
-import { useContractRead } from 'wagmi';
-import predictionMarket from '../../constants/abi/predictionMarket.json';
+import { useContractReads } from 'wagmi';
+import { predictionMarket } from '../../constants/abi/predictionMarket';
+import { Address, ContractFunctionConfig } from 'viem';
+import dayjs from 'dayjs';
+import { DATE_FORMAT } from '../../constants';
 
 interface Props {
   marketAddress: `0x${string}`;
@@ -10,17 +13,37 @@ interface Props {
 export const Market: FC<Props> = props => {
   const { marketAddress } = props;
 
-  const { data, isError, isLoading, error } = useContractRead({
-    address: marketAddress,
-    abi: predictionMarket,
-    functionName: 'getState',
-  });
+  const contracts = [
+    {
+      abi: predictionMarket.abi,
+      address: marketAddress,
+      functionName: 'getDescription',
+    },
+    {
+      abi: predictionMarket.abi,
+      address: marketAddress,
+      functionName: 'getCutoffDate',
+    },
+  ];
 
-  console.log('data', data);
-  console.log('isLoading', isLoading);
-  console.log('error', error);
+  const { data, error, isLoading } = useContractReads<any[], boolean, any>({ contracts });
 
-  return <Layout>{marketAddress}</Layout>;
+  return (
+    <Layout>
+      {marketAddress}
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : error ? (
+        <div>{error.message}</div>
+      ) : data ? (
+        <div>
+          <div>Description: {data[0].result}</div>
+          <div>Cutoff Date: {dayjs(Number(data[1].result)).format(DATE_FORMAT)}</div>
+          <div>Cutoff Timestamp: {Number(data[1].result)}</div>
+        </div>
+      ) : null}
+    </Layout>
+  );
 };
 
 export default Market;
