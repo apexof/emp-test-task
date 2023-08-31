@@ -1,12 +1,11 @@
 import { Alert } from 'antd';
 import dayjs from 'dayjs';
 import React, { FC } from 'react';
+import { ContractFunctionConfig } from 'viem';
 import { useContractReads } from 'wagmi';
 import Layout from '../../components/Layout';
 import { DATE_FORMAT } from '../../constants';
 import { predictionMarket } from '../../constants/abi/predictionMarket';
-import { useRouter } from 'next/router';
-import { ContractFunctionConfig } from 'viem';
 
 const functionNames = ['getDescription', 'getCutoffDate', 'getState'];
 
@@ -31,7 +30,7 @@ export const Market: FC<Props> = props => {
 
   return (
     <Layout>
-      {marketAddress}
+      <div>Market Address: {marketAddress}</div>
       {isLoading ? (
         <div>Loading...</div>
       ) : error ? (
