@@ -7,6 +7,7 @@ export default function Layout({ children }) {
   return (
     <div>
       <Head>
+        <title>EMP</title>
         <meta name="description" content="EMP" />
       </Head>
       <header style={{ padding: 10, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
