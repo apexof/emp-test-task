@@ -1,9 +1,11 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Link from 'next/link';
 
-export default function Layout({ children }) {
+export const Layout: FC<PropsWithChildren> = props => {
+  const { children } = props;
+
   return (
     <div>
       <Head>
@@ -20,4 +22,4 @@ export default function Layout({ children }) {
       <main>{children}</main>
     </div>
   );
-}
+};

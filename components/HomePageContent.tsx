@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import type { NextPage } from 'next';
 import React, { useState } from 'react';
 import { polygonMumbai } from 'wagmi/chains';
-import Layout from '../components/Layout';
+import { Layout } from '../components/Layout';
 import { ModalCreateMarket } from '../components/ModalCreateMarket';
 import { ModalExistMarketAlert } from '../components/ModalExistMarketAlert';
 import { ZERO_ADDRESS } from '../constants';

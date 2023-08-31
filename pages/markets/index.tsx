@@ -6,7 +6,7 @@ import { ColumnsType } from 'antd/es/table';
 import { Market } from '../../types/market';
 import { shortenHash } from '../../utils/shortenHash';
 import Link from 'next/link';
-import Layout from '../../components/Layout';
+import { Layout } from '../../components/Layout';
 import dayjs from 'dayjs';
 import { DATE_FORMAT } from '../../constants';
 

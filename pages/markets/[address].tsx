@@ -3,9 +3,10 @@ import dayjs from 'dayjs';
 import React, { FC } from 'react';
 import { ContractFunctionConfig } from 'viem';
 import { useContractReads } from 'wagmi';
-import Layout from '../../components/Layout';
+import { Layout } from '../../components/Layout';
 import { DATE_FORMAT } from '../../constants';
 import { predictionMarket } from '../../constants/abi/predictionMarket';
+import { GetStaticProps } from 'next';
 
 const functionNames = ['getDescription', 'getCutoffDate', 'getState'];
 
@@ -49,13 +50,13 @@ export const Market: FC<Props> = props => {
 
 export default Market;
 
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
-      marketAddress: params.address,
+      marketAddress: params?.address,
     },
   };
-}
+};
 
 export async function getStaticPaths() {
   return {
