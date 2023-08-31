@@ -1,12 +1,11 @@
-import { Alert, Button, Modal } from 'antd';
-import dayjs, { Dayjs } from 'dayjs';
+import { Alert, Button, Col, Modal, Row } from 'antd';
+import Link from 'next/link';
 import React, { FC } from 'react';
-import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi';
+import { useContractWrite, useWaitForTransaction } from 'wagmi';
 import { DATE_FORMAT } from '../constants';
 import { predictionMarketFactory } from '../constants/abi/predictionMarketFactory';
-import { shortenHash } from '../utils/shortenHash';
-import Link from 'next/link';
 import { CreateMarketForm } from '../types/market';
+import { shortenHash } from '../utils/shortenHash';
 
 interface Props extends CreateMarketForm {
   isModalOpen: boolean;
@@ -14,7 +13,17 @@ interface Props extends CreateMarketForm {
 }
 
 export const ModalCreateMarket: FC<Props> = props => {
-  const { isModalOpen, cutoffDate, decisionDate, decisionProvider, description, setIsModalOpen } = props;
+  const { isModalOpen, setIsModalOpen } = props;
+
+  return (
+    <Modal title="Create Market" open={isModalOpen} destroyOnClose onCancel={() => setIsModalOpen(false)} footer={null}>
+      <ModalCreateMarketContent {...props} />
+    </Modal>
+  );
+};
+
+export const ModalCreateMarketContent: FC<Props> = props => {
+  const { cutoffDate, decisionDate, decisionProvider, description, setIsModalOpen } = props;
 
   const {
     data,
@@ -32,20 +41,9 @@ export const ModalCreateMarket: FC<Props> = props => {
   const { data: tx, error: txError, isLoading: txLoading } = useWaitForTransaction({ hash: data?.hash });
   const error = writeError || txError;
   const isLoading = writeLoading || txLoading;
+
   return (
-    <Modal
-      title="Create Market"
-      open={isModalOpen}
-      destroyOnClose
-      footer={[
-        <Button key="back" onClick={() => setIsModalOpen(false)}>
-          Cancel
-        </Button>,
-        <Button key="submit" type="primary" loading={isLoading} disabled={!write || (isSuccess && !!tx)} onClick={() => write?.()}>
-          Confirm
-        </Button>,
-      ]}
-    >
+    <>
       {isLoading ? (
         <>Loading...</>
       ) : error ? (
@@ -65,6 +63,18 @@ export const ModalCreateMarket: FC<Props> = props => {
           <div>Decision Provider: {shortenHash(decisionProvider)}</div>
         </div>
       )}
-    </Modal>
+      <Row justify="end" gutter={10}>
+        <Col>
+          <Button key="back" onClick={() => setIsModalOpen(false)}>
+            Cancel
+          </Button>
+        </Col>
+        <Col>
+          <Button key="submit" type="primary" loading={isLoading} disabled={!write || (isSuccess && !!tx)} onClick={() => write?.()}>
+            Confirm
+          </Button>
+        </Col>
+      </Row>
+    </>
   );
 };
