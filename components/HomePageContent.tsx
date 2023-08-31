@@ -10,7 +10,7 @@ import { ModalExistMarketAlert } from '../components/ModalExistMarketAlert';
 import { ZERO_ADDRESS } from '../constants';
 import { predictionMarketFactory } from '../constants/abi/predictionMarketFactory';
 import { CreateMarketForm } from '../types/market';
-import { SwitchNetworkWrapper } from './SwitchNetworkWrapper';
+import { SwitchNetworkBtnWrap } from './SwitchNetworkBtnWrap';
 
 const HomePage: NextPage = () => {
   const [isExistMarketModalOpen, setIsExistMarketModalOpen] = useState(false);
@@ -69,11 +69,11 @@ const HomePage: NextPage = () => {
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <SwitchNetworkWrapper targetChain={polygonMumbai}>
+          <SwitchNetworkBtnWrap targetChain={polygonMumbai}>
             <Button loading={isLoading} type="primary" htmlType="submit">
               Submit
             </Button>
-          </SwitchNetworkWrapper>
+          </SwitchNetworkBtnWrap>
         </Form.Item>
         {error && <Alert message={error?.message} type="error" />}
       </Form>
