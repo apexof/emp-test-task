@@ -9,10 +9,10 @@ import React from 'react';
 
 export const mumbai = {
   ...polygonMumbai,
-  // rpcUrls: {
-  //   public: { http: ['https://polygon-mumbai-bor.publicnode.com'] },
-  //   default: { http: ['https://polygon-mumbai-bor.publicnode.com'] },
-  // },
+  rpcUrls: {
+    public: { http: ['https://polygon-mumbai-bor.publicnode.com'] },
+    default: { http: ['https://polygon-mumbai-bor.publicnode.com'] },
+  },
 } as const satisfies Chain;
 
 const { chains, publicClient, webSocketPublicClient } = configureChains([mainnet, mumbai], [publicProvider()]);
