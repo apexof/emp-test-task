@@ -1,7 +1,7 @@
 import { readContract } from '@wagmi/core';
 import { Alert, Button, DatePicker, Form, Input } from 'antd';
 import dayjs from 'dayjs';
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { polygonMumbai } from 'wagmi/chains';
 import { Layout } from '../components/Layout';
 import { ModalCreateMarket } from '../components/ModalCreateMarket';
