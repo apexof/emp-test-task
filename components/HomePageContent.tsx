@@ -1,8 +1,7 @@
 import { readContract } from '@wagmi/core';
 import { Alert, Button, DatePicker, Form, Input } from 'antd';
 import dayjs from 'dayjs';
-import type { NextPage } from 'next';
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { polygonMumbai } from 'wagmi/chains';
 import { Layout } from '../components/Layout';
 import { ModalCreateMarket } from '../components/ModalCreateMarket';
@@ -12,7 +11,7 @@ import { predictionMarketFactory } from '../constants/abi/predictionMarketFactor
 import { CreateMarketForm } from '../types/market';
 import { SwitchNetworkBtnWrap } from './SwitchNetworkBtnWrap';
 
-const HomePage: NextPage = () => {
+const HomePageContent: FC = () => {
   const [isExistMarketModalOpen, setIsExistMarketModalOpen] = useState(false);
   const [isCreateMarketModalOpen, setIsCreateMarketModalOpen] = useState(false);
   const [form, setForm] = useState<CreateMarketForm>();
@@ -84,4 +83,4 @@ const HomePage: NextPage = () => {
   );
 };
 
-export default HomePage;
+export default HomePageContent;
