@@ -6,7 +6,8 @@ import { useContractReads } from 'wagmi';
 import { Layout } from '../../components/Layout';
 import { DATE_FORMAT } from '../../constants';
 import { predictionMarket } from '../../constants/abi/predictionMarket';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps, GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 
 const functionNames = ['getDescription', 'getCutoffDate', 'getState'];
 
@@ -19,12 +20,9 @@ const getContracts = (marketAddress: `0x${string}`): ContractFunctionConfig[] =>
   return contracts;
 };
 
-interface Props {
-  marketAddress: `0x${string}`;
-}
-
-export const Market: FC<Props> = props => {
-  const { marketAddress } = props;
+export const Market: FC = () => {
+  const router = useRouter();
+  const marketAddress = router.query.address as `0x${string}`;
   const contracts = getContracts(marketAddress);
 
   const { data, error, isLoading } = useContractReads<any[], boolean, any>({ contracts });
@@ -49,18 +47,3 @@ export const Market: FC<Props> = props => {
 };
 
 export default Market;
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  return {
-    props: {
-      marketAddress: params?.address,
-    },
-  };
-};
-
-export async function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: false,
-  };
-}
