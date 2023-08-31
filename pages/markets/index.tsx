@@ -42,6 +42,7 @@ const columns: ColumnsType<Market> = [
     title: 'State',
     dataIndex: 'state',
     key: 'state',
+    render: value => `${value}`,
   },
   {
     title: 'Win Token',
@@ -52,7 +53,7 @@ const columns: ColumnsType<Market> = [
 
 const MarketsPage: NextPage = () => {
   const { data: markets, error, isLoading } = useGetMarkets();
-
+  console.log('', markets);
   return (
     <Layout>
       {isLoading ? (
