@@ -53,7 +53,7 @@ const columns: ColumnsType<Market> = [
 
 const MarketsPage: NextPage = () => {
   const { data: markets, error, isLoading } = useGetMarkets();
-  console.log('', markets);
+
   return (
     <Layout>
       {isLoading ? (
