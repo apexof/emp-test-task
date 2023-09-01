@@ -63,7 +63,7 @@ export const ModalCreateMarketContent: FC<Props> = props => {
           <div>Decision Provider: {shortenHash(decisionProvider)}</div>
         </div>
       )}
-      <Row justify="end" gutter={10}>
+      <Row style={{ marginTop: 15 }} justify="end" gutter={10}>
         <Col>
           <Button key="back" onClick={() => setIsModalOpen(false)}>
             Cancel
