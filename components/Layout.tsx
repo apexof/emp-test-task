@@ -14,7 +14,7 @@ export const Layout: FC<PropsWithChildren> = props => {
       </Head>
       <header style={{ padding: 10, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
-          <Link href="/">Create Market</Link>&nbsp;
+          <Link href="/">Create Market</Link>&nbsp;&nbsp;&nbsp;
           <Link href="/markets">All Markets</Link>
         </div>
         <ConnectButton />
