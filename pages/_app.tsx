@@ -20,7 +20,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains([mainnet
 const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_ID as string;
 
 const { wallets } = getDefaultWallets({
-  appName: 'RainbowKit demo',
+  appName: 'EMP Test Task',
   projectId,
   chains,
 });
